@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <h3>Create Product Form</h3>
+    <form #productForm = "ngForm" (ngSubmit)="onSubmit(productForm)">
+
+        <div class = "form-group">
+            <label>Product Name</label>
+            <input type = "text" #productName = "ngModel"
+                class = "form-control" name = "productName"
+                [ngModel] = "productData.productName" pattern = "^.{3,50}$"
+                [class.is-invalid] = "(productName.invalid || nameExistCheck(productName.value)) && productName.touched" required>
+            <div *ngIf="productName.errors;else showNameExist">
+                <small class="text-danger" *ngIf="productName.errors?.['required'] && productName.touched">
+                    Product Name is required</small>
+                <small class="text-danger" *ngIf="productName.errors?.['pattern']">
+                    Must be between 3 and 50 characters</small>
+            </div>
+            <ng-template #showNameExist>
+                <small class="text-danger" *ngIf="nameExist">
+                    Name exist</small>
+            </ng-template>
+        </div>
+
+        <div class = "form-group">
+            <label>Product Short Code</label>
+            <input type = "text" #productShortCode = "ngModel"
+                class = "form-control" name = "productShortCode"
+                [ngModel] = "productData.productShortCode" pattern = "^.{3,50}$"
+                [class.is-invalid] = "(productShortCode.invalid || codeExistCheck(productShortCode.value)) && productShortCode.touched" required>
+            <div *ngIf="productShortCode.errors;else showCodeExist">
+                <small class="text-danger" *ngIf="productShortCode.errors?.['required'] && productShortCode.touched">
+                    Product code is required</small>
+                <small class="text-danger" *ngIf="productShortCode.errors?.['pattern']">
+                    Must be between 3 and 50 characters</small>
+            </div>
+            <ng-template #showCodeExist>
+                <small class="text-danger" *ngIf="codeExist">
+                    Product code exist</small>
+            </ng-template>
+        </div>
+
+        <div class = "form-group">
+            <label>Category</label>
+            <select class = "form-select" #category = "ngModel" name = "category"
+                [ngModel] = "productData.category" [class.is-invalid] =
+                "category.invalid && category.touched" required>
+                <option *ngFor="let category of categories"> {{ category }} </option>
+            </select>
+            <small class="text-danger" *ngIf="category.errors?.['required'] && category.touched">
+                Category is required</small>
+        </div>
+
+        <div class = "form-group">
+            <label>Price</label>
+            <input type = "number" #price = "ngModel" class="form-control"
+                name = "price" [ngModel]="productData.price" [class.is-invalid] =
+                "price.invalid && price.touched" required>
+            <small class="text-danger" *ngIf="price.errors?.['required'] && price.touched">
+                Price is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" #description="ngModel" class="form-control" name="description"
+                [ngModel]="productData.description" pattern="^.{3,250}$"
+                [class.is-invalid]="description.invalid && description.touched">
+            <small class="text-danger" *ngIf="description.errors?.['pattern']">
+                Must be between 3 and 250 characters</small>
+        </div>
+
+        <div class = "form-group">
+            <label>Image Url</label>
+            <input type = "url" #imageUrl = "ngModel" class = "form-control"
+                name = "imageUrl" [ngModel] = "productData.imageUrl">
+        </div>
+
+        <div class="mb-3">
+            <label>Is Best Achived</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="isBestAchived"
+                 value="true" [ngModel] = "productData.isBestAchived">
+                <label class="form-check-label">True</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="isBestAchived"
+                 value="false" [ngModel] = "productData.isBestAchived">
+                <label class="form-check-label">False</label>
+            </div>
+        </div>
+
+        <div class = "form-group">
+            <label>Created Date</label>
+            <input matInput type = "date" max = "{{maxDate}}" #createdDate = "ngModel" class = "form-control"
+                name = "createdDate" [ngModel] = "productData.createdDate"
+                [class.is-invalid] = "createdDate.invalid && createdDate.touched" 
+                required>
+            <small class="text-danger" *ngIf="createdDate.errors?.['required'] && createdDate.touched">
+                Creation date is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Origin</label>
+            <select class="form-select" #origin="ngModel" name="origin" [ngModel]="productData.origin"
+                [class.is-invalid]="origin.invalid && origin.touched" required>
+                <option *ngFor="let origin of origins"> {{ origin }} </option>
+            </select>
+            <small class="text-danger" *ngIf="origin.errors?.['required'] && origin.touched">
+                Origin is required</small>
+        </div>
+        <button [disabled] = "productForm.form.invalid" class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+
+

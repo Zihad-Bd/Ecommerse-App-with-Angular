@@ -1,0 +1,25 @@
+.content {
+    padding: 16px;
+}
+
+.mat-card-image {
+    height: 100px;
+    width: auto;
+}
+
+.mat-card-content {
+    text-align: center;
+
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+.mat-card-title {
+    text-align: center;
+}
+
+.mat-card-header {
+    display: unset;
+    text-align: center;
+}

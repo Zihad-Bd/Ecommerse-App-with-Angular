@@ -1,0 +1,31 @@
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33%" *ngFor="let indexOfCartProducts of indicesOfCartProducts;let i = index">
+            <mat-card class="mat-elevation-z4">
+                <mat-card-header>
+                    <mat-card-title>{{productsData[indexOfCartProducts].productName}}</mat-card-title>
+                </mat-card-header>
+                <div style="display : flex;place-content: center;">
+                    <img mat-card-image src="{{productsData[indexOfCartProducts].imageUrl}}" alt="no photo">
+                </div>
+                <mat-card-content>
+                    <p>
+                        Quantity
+                        <input type = "number" #quantity (change) =
+                        "onInputChange(quantity.value, i)" 
+                        [(ngModel)] = "cartProductQuantities[i]">
+                    </p>
+                    <p>Price: {{productsData[indexOfCartProducts].price * cartProductQuantities[i]
+                    | currency : "USD"}}</p>
+                    <button mat-raise-button class="btn btn-danger" (click)="onRemove(i)" style="font-size: 20px;">
+                        Remove</button>
+                </mat-card-content>
+                <mat-card-actions>
+
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <hr>
+    <h4 style = "margin-left: 70%;">Total price = {{totalPrice | currency: "USD"}}</h4>
+</div>

@@ -1,0 +1,37 @@
+<button class="btn btn-primary" (click)="onCreate()"
+style = "margin-top: 10px; margin-left:10px; font-size: 30px"
+>Create</button>
+
+<div class = "content">
+    <div fxLayout = "row wrap" fxLayoutGap = "16px grid">
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33%"
+        *ngFor = "let productData of productsData;let i = index">
+            <mat-card class="mat-elevation-z4">
+                <mat-card-header>
+                    <mat-card-title>{{productData.productName}}</mat-card-title>
+                </mat-card-header>
+                <div style = "display : flex;place-content: center;">
+                <img mat-card-image src="{{productData.imageUrl}}" alt="no photo">
+                </div>
+                <mat-card-content>
+                    <p>Category: {{productData.category}}</p>
+                    <p>Price: {{productData.price | currency : "USD"}}</p>
+                    <p>Origin: {{productData.origin}}</p>
+                    <details>
+                        <summary>details</summary>
+                        <p>Description: {{productData.description}} </p>
+                        <p>Product code: {{productData.productShortCode}} </p>
+                        <p>Created date: {{productData.createdDate}} </p>
+                    </details>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raise-button class = "btn btn-primary" (click)="onEdit(productData, i)" style = "font-size: 20px;">Edit</button>
+                    <button  mat-raise-button class = "btn btn-danger" [disabled]="isInCart(i)" (click)="onDelete(i)" style="float: right;font-size: 20px;">Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
