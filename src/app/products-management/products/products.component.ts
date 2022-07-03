@@ -1,49 +1,52 @@
 import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProductsDataService } from 'src/app/services/products-data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CreateProductFormComponent } from '../create-product-form/create-product-form.component';
+import { CreateProductFormComponent } from '../../Components/create-product-form/create-product-form.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit, DoCheck {
-
-  productsData:any = [];
+  productsData: any = [];
+  displayedColumns: string[] = ['imageUrl', 'productName', 'category', "price", "origin", "edit", "delete"];
+  displayedColumnsName: string[] = ['Image', 'Product Name', 'Category', "Price", "Origin", "Edit", "Delete"];
+  dataSource: any;
 
   constructor(
     private productsDataService: ProductsDataService,
-    private dialog : MatDialog)
-  {
+    private dialog: MatDialog
+  ) {}
 
-  }
 
   ngOnInit(): void {
+    console.log('lazy products');
   }
 
   onCreate() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
-    dialogConfig.height = "100%";
+    dialogConfig.width = '60%';
+    dialogConfig.height = '100%';
     this.productsDataService.clearProductData();
-    this.productsDataService.buttonClicked = "Create";
+    this.productsDataService.buttonClicked = 'Create';
     this.dialog.open(CreateProductFormComponent, dialogConfig);
   }
 
-  onEdit(productData:any, i:any) {
+  onEdit(productData: any, i: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "60%";
-    dialogConfig.height = "100%";
-    this.productsDataService.buttonClicked = "Edit";
+    dialogConfig.width = '60%';
+    dialogConfig.height = '100%';
+    this.productsDataService.buttonClicked = 'Edit';
     this.dialog.open(CreateProductFormComponent, dialogConfig);
     this.productsDataService.existingProductData(productData);
     this.productsDataService.editedIndex = i;
   }
 
-  onDelete(deletedIndex:any) {
+  onDelete(deletedIndex: any) {
     this.productsDataService.productsData.splice(deletedIndex, 1);
     let indices = this.productsDataService.indicesOfCartProducts;
     for (let j = 0; j < indices.length; ++j) {
@@ -57,9 +60,12 @@ export class ProductsComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.productsData = this.productsDataService.productsData;
     console.log(this.productsData);
+    this.dataSource = new MatTableDataSource(this.productsData);
+    console.log(this.dataSource);
+    
   }
 
-  isInCart(decideToDeletedIndex:any) {
+  isInCart(decideToDeletedIndex: any) {
     let indices = this.productsDataService.indicesOfCartProducts;
     for (let i = 0; i < indices.length; ++i) {
       if (indices[i] == decideToDeletedIndex) {

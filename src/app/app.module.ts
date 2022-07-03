@@ -3,47 +3,54 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatSliderModule } from '@angular/material/slider';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule} from "@angular/material/dialog";
-import {MatCardModule} from "@angular/material/card";
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatButtonModule} from "@angular/material/button";
-import {MatToolbarModule} from "@angular/material/toolbar";
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsDataService } from './services/products-data.service';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { CreateProductFormComponent } from './Components/create-product-form/create-product-form.component';
 import { MyCartComponent } from './Components/my-cart/my-cart.component';
-import { ProductsComponent } from './Components/products/products.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "dashboard", pathMatch: "full" },
-  { path: "dashboard", component: DashboardComponent},
-  { path: "products", component: ProductsComponent,
-  children : [
-    { path: "create", component: CreateProductFormComponent}
-  ]
+  { path: 'products', component: DashboardComponent },
+  /*   {
+    path: 'products-management',
+    component: ProductsComponent,
+    children: [{ path: 'create', component: CreateProductFormComponent }],
+  }, */
+  { path: 'my-cart', component: MyCartComponent },
+  {
+    path: 'products-management',
+    loadChildren: () =>
+      import('./products-management/products-management.module').then(
+        (m) => m.ProductsManagementModule
+      ),
   },
-  { path: "my-cart", component: MyCartComponent},
-  { path: "**", redirectTo: "dashboard"}
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+  },
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard' },
 ];
-
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CreateProductFormComponent,
-    MyCartComponent,
-    ProductsComponent
+    MyCartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NoopAnimationsModule,
     MatSliderModule,
     RouterModule.forRoot(routes),
@@ -53,10 +60,10 @@ const routes: Routes = [
     FlexLayoutModule,
     MatButtonModule,
     MatToolbarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
   ],
-  providers: [ProductsDataService],
+  providers: [ProductsDataService], 
   bootstrap: [AppComponent],
-  entryComponents: [CreateProductFormComponent]
+  entryComponents: [CreateProductFormComponent],
 })
-export class AppModule { }
+export class AppModule {}

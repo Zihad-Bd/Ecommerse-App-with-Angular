@@ -16,7 +16,14 @@ export class MyCartComponent implements OnInit, DoCheck {
   constructor(private productsDataService:ProductsDataService) { }
 
   ngOnInit(): void {
+    
     this.productsData = this.productsDataService.productsData;
+    
+    for (let i = 0; i < this.productsData.length; ++i) {
+      this.cartProductQuantities[i] = 1;
+    }
+    console.log(this.cartProductQuantities);
+    
   }
 
   onInputChange(quantity:any, i:any) {

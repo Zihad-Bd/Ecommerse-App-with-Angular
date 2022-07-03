@@ -1,12 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LoginServiceService } from './services/login-service.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'assignment-data-table-app';
+  showProductsManagement: Boolean = false;
+
+  constructor(private loginService: LoginServiceService) {
+  }
+
+  ngOnInit(): void {
+    this.loginService.loginStatusChanged.subscribe(value => {
+      this.showProductsManagement = value;
+      console.log(this.showProductsManagement);
+      
+    });
+  }
 
 /*   tableColumns = [
     { columnDef: 'ProductName', header: 'ProductName', cell: (element: Record<string, any>) => `${element['ProductName']}` },

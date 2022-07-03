@@ -23,7 +23,9 @@ export class DashboardComponent implements OnInit {
         return;
       }
     }
+
     this.productsDataService.indicesOfCartProducts.push(i);
+    this.productsDataService.cartProductQuantities[this.productsDataService.indicesOfCartProducts.length - 1] = 1;
   }
 
 }
