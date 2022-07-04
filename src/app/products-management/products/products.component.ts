@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit, DoCheck {
 
   onCreate() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = false;
     dialogConfig.width = '60%';
     dialogConfig.height = '100%';
     this.productsDataService.clearProductData();

@@ -1,6 +1,167 @@
 <div class="container-fluid">
-    <h3>Create Product Form</h3>
-    <form #productForm = "ngForm" (ngSubmit)="onSubmit(productForm)">
+  <h3>Create Product Form</h3>
+  <form [formGroup]="productForm" (ngSubmit) = "onSubmit()" novalidate>
+    <mat-form-field appearance="outline">
+      <mat-label for="productName">Product Name</mat-label>
+      <input
+        matInput
+        type="text"
+        name="productName"
+        id="productName"
+        formControlName="productName"
+      />
+      <mat-error
+        *ngIf="
+        productName?.touched && productName?.errors?.['required'];else notEmptySection"
+      >
+        Product Name is required
+      </mat-error>
+      <ng-template #notEmptySection>
+        <mat-error
+          *ngIf="productName?.touched && (productName?.errors?.['minlength'] || productName?.errors?.['maxlength'])"
+        >
+          Must be between 3 and 50 characters
+        </mat-error>
+      </ng-template>
+      <mat-error
+        *ngIf="productName?.touched && productName?.errors?.['nameExist']"
+      >
+        Product Name is already exist
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="productShortCode">Product Short Code</mat-label>
+      <input
+        matInput
+        type="text"
+        name="productShortCode"
+        id="productShortCode"
+        formControlName="productShortCode"
+      />
+      <mat-error
+        *ngIf="
+        productShortCode?.touched && productShortCode?.errors?.['required'];else notEmptySection2"
+      >
+        Product Short Code is required
+      </mat-error>
+      <ng-template #notEmptySection2>
+        <mat-error
+          *ngIf="productShortCode?.touched && (productShortCode?.errors?.['minlength'] || productShortCode?.errors?.['maxlength'])"
+        >
+          Must be between 3 and 50 characters
+        </mat-error>
+      </ng-template>
+      <mat-error
+        *ngIf="productShortCode?.touched && productShortCode?.errors?.['codeExist']"
+      >
+        Product Short Code is already exist
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="category">Category</mat-label>
+      <mat-select name="category" id="category" formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="category?.errors?.['required']">
+        Category is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="price">Price</mat-label>
+      <input
+        matInput
+        type="number"
+        name="price"
+        id="price"
+        formControlName="price"
+      />
+      <mat-error *ngIf="price?.errors?.['required']">
+        Price is required
+      </mat-error>
+      <!--   TODO: Negative price is not allowed validator should be added. -->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="description">Description</mat-label>
+      <input
+        matInput
+        type="text"
+        name="description"
+        id="description"
+        formControlName="description"
+      />
+      <mat-error
+        *ngIf="description?.errors?.['minlength'] || description?.errors?.['maxlength']"
+      >
+        Must be between 3 and 250 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="imageUrl">Image Url</mat-label>
+      <input
+        matInput
+        type="url"
+        name="imageUrl"
+        id="imageUrl"
+        formControlName="imageUrl"
+      />
+    </mat-form-field>
+
+    <mat-radio-group
+      formControlName="isBestAchived"
+      name="isBestAchived"
+      id="isBestAchived"
+    >
+      <mat-label for="isBestAchived">Is Best Achived</mat-label>
+      <mat-radio-button value="true"> true </mat-radio-button>
+      <mat-radio-button value="false"> false </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="createdDate">Created Date</mat-label>
+      <input
+        matInput
+        type="date"
+        name="createdDate"
+        id="createdDate"
+        formControlName="createdDate"
+        max = "{{maxDate}}"
+      />
+      <mat-error *ngIf="createdDate?.errors?.['required']">
+        Creation date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="origin">Origin</mat-label>
+      <mat-select name="origin" id="origin" formControlName="origin">
+        <mat-option *ngFor="let origin of origins" [value]="origin">
+          {{ origin }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="origin?.errors?.['required']">
+        Origin is required
+      </mat-error>
+    </mat-form-field>
+
+    <p>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="productForm?.invalid"
+      >
+        Submit
+      </button>
+    </p>
+  </form>
+
+  <!--     <form #productForm = "ngForm" (ngSubmit)="onSubmit(productForm)">
 
         <div class = "form-group">
             <label>Product Name</label>
@@ -108,7 +269,5 @@
                 Origin is required</small>
         </div>
         <button [disabled] = "productForm.form.invalid" class="btn btn-primary" type="submit">Submit</button>
-    </form>
+    </form> -->
 </div>
-
-
