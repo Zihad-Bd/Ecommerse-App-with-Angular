@@ -1,26 +1,51 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Zihad's Mart</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <h1 class="navbar-brand" style="font-size: 39px">Zihad's Mart</h1>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText" [ngStyle]="{'margin-left': (showProductsManagement) ? '49.28%' : '66.92%'}"> 
+    <div
+      class="collapse navbar-collapse"
+      id="navbarText"
+      [ngStyle]="{
+        'margin-left': showProductsManagement ? '46.28%' : '63.92%'
+      }"
+    >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/products">Products</a>
+          <a class="nav-link no-wrap" routerLink="/products">Products</a>
         </li>
         <li class="nav-item">
-          <a [hidden] = "!showProductsManagement" class="nav-link" routerLink="/products-management">Products Management</a>
-        </li>
-        <li class="nav-item"> 
-          <a class="nav-link" routerLink="/my-cart">My Cart</a>
+          <a
+            [hidden]="!showProductsManagement"
+            class="nav-link no-wrap"
+            routerLink="/products-management"
+            >Products Management</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Login</a>
+          <a class="nav-link no-wrap" routerLink="/login">Login</a>
         </li>
+        <li class="nav-item" style="place-self: center">
+          <mat-icon
+            class="nav-link no-wrap cart-icon"
+            routerLink="/my-cart"
+            style="font-size: 45px"
+            >shopping_cart</mat-icon
+          >
+        </li>
+        <p class="cart-count">{{ differentProductCount }}</p>
       </ul>
     </div>
+    <!-- <p class="cart-count">{{ differentProductCount }}</p> -->
   </div>
 </nav>
 <router-outlet></router-outlet>

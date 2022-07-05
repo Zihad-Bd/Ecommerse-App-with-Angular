@@ -26,15 +26,18 @@ export class MyCartComponent implements OnInit, DoCheck {
     
   }
 
-  onInputChange(quantity:any, i:any) {
-    this.productsDataService.cartProductQuantities[i] = quantity;
+  onInputChange(quantity: any, i: any) {
+    this.productsDataService.updatecartProductQuantities(quantity, i);
+    //this.productsDataService.cartProductQuantities[i] = quantity;
     this.cartProductQuantities = this.productsDataService.cartProductQuantities;
   }
 
   onRemove(i:any) {
-    this.productsDataService.indicesOfCartProducts.splice(i, 1);
+    //this.productsDataService.indicesOfCartProducts.splice(i, 1);
+    this.productsDataService.updateindicesOfCartProductsOnRemove(i);
     this.indicesOfCartProducts = this.productsDataService.indicesOfCartProducts;
-    this.productsDataService.cartProductQuantities.splice(i, 1);
+    this.productsDataService.updatecartProductQuantitiesOnRemove(i);
+    //this.productsDataService.cartProductQuantities.splice(i, 1);
     this.cartProductQuantities = this.productsDataService.cartProductQuantities;
   }
 
@@ -53,5 +56,4 @@ export class MyCartComponent implements OnInit, DoCheck {
       parseInt(this.cartProductQuantities[i], 10);
     }
   }
-
 }

@@ -1,0 +1,21 @@
+.no-wrap {
+  white-space: nowrap;
+}
+
+.cart-count {
+  background: rgb(231, 208, 235);
+  justify-content: center;
+  height: 23px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-left: 17px;
+  margin-bottom: 38px;
+  width: 23px;
+  place-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.cart-icon {
+    cursor: pointer;
+}

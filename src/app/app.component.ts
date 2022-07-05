@@ -1,28 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginServiceService } from './services/login-service.service';
 import { Subject } from 'rxjs';
+import { ProductsDataService } from './services/products-data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'assignment-data-table-app';
   showProductsManagement: Boolean = false;
+  differentProductCount: number = 0;
 
-  constructor(private loginService: LoginServiceService) {
-  }
+  constructor(
+    private loginService: LoginServiceService,
+    private productsDataService: ProductsDataService
+  ) {}
 
   ngOnInit(): void {
-    this.loginService.loginStatusChanged.subscribe(value => {
+    this.loginService.loginStatusChanged.subscribe((value) => {
       this.showProductsManagement = value;
       console.log(this.showProductsManagement);
-      
     });
+    this.productsDataService.indicesOfCartProductsChanged.subscribe((value) => {
+      this.differentProductCount = +value.length;
+    })
   }
 
-/*   tableColumns = [
+  /*   tableColumns = [
     { columnDef: 'ProductName', header: 'ProductName', cell: (element: Record<string, any>) => `${element['ProductName']}` },
     { columnDef: 'ProductShortCode', header: 'ProductShortCode', cell: (element: Record<string, any>) => `${element['ProductShortCode']}` },
     { columnDef: 'Category', header: 'Category', cell: (element: Record<string, any>) => `${element['Category']}` },

@@ -71,10 +71,10 @@ export class CreateProductFormComponent implements OnInit, DoCheck {
     private customValidatorService: CustomValidatorService
   ) {}
 
-  ngOnInit(): void {}
-
-  onSubmit() {
-    console.log(this.productForm.value);
+  ngOnInit(): void {
+    if (this.productsDataService.buttonClicked == "Edit") {
+      this.setExistingFormFieldValues();
+    }
   }
 
   get productName() {
@@ -105,19 +105,20 @@ export class CreateProductFormComponent implements OnInit, DoCheck {
     return this.productForm.get('origin');
   }
 
-  /*   onSubmit(productForm:NgForm) {
-    if (this.productsDataService.buttonClicked == "Create") {
-      this.productsDataService.productsData.push(productForm.value);
-      console.log(productForm.value);
+  onSubmit() {
+    if (this.productsDataService.buttonClicked == 'Create') {
+      this.productsDataService.productsData.push(this.productForm.value);
+      console.log(this.productForm.value);
       this.dialogRef.close();
     } else {
-      this.productsDataService.productsData[this.productsDataService.editedIndex]
-      = productForm.value;
+      this.productsDataService.productsData[
+        this.productsDataService.editedIndex
+      ] = this.productForm.value;
       this.dialogRef.close();
     }
-  }*/
+  }
 
-/*   nameExistCheck(productName: any) {
+  /*   nameExistCheck(productName: any) {
     for (let i = 0; i < this.productsDataService.productsData.length; ++i) {
       console.log(
         this.productsDataService.productsData[i].productName,
@@ -163,17 +164,34 @@ export class CreateProductFormComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.buttonClicked = this.productsDataService.buttonClicked;
-    //this.productData = this.productsDataService.productData;
+    //this.productForm.value = this.productsDataService.productData;
+    //this.setExistingFormFieldValues();
     const date = new Date();
-    let todayDate:any = date.getDate();
+    let todayDate: any = date.getDate();
     if (todayDate < 10) {
-      todayDate = "0" + todayDate;
+      todayDate = '0' + todayDate;
     }
-    let month:any = date.getMonth() + 1;
+    let month: any = date.getMonth() + 1;
     if (month < 10) {
-      month = "0" + month;
+      month = '0' + month;
     }
-    let year:any = date.getFullYear();
-    this.maxDate = year + "-" + month + "-" + todayDate;
+    let year: any = date.getFullYear();
+    this.maxDate = year + '-' + month + '-' + todayDate;
+  }
+
+  setExistingFormFieldValues() {
+    let productData = {
+      productName: this.productsDataService.productData.productName,
+      productShortCode: this.productsDataService.productData.productShortCode,
+      category: this.productsDataService.productData.category,
+      price: this.productsDataService.productData.price,
+      description: this.productsDataService.productData.description,
+      imageUrl: this.productsDataService.productData.imageUrl,
+      isBestAchived: this.productsDataService.productData.isBestAchived,
+      createdDate: this.productsDataService.productData.createdDate,
+      origin: this.productsDataService.productData.origin
+    };
+    this.productForm.setValue(productData);
+    console.log(this.productForm.value, this.productsDataService.productData);
   }
 }

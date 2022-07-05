@@ -36,8 +36,9 @@ export class ProductsComponent implements OnInit, DoCheck {
   }
 
   onEdit(productData: any, i: any) {
+    console.log(productData);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = false;
     dialogConfig.width = '60%';
     dialogConfig.height = '100%';
     this.productsDataService.buttonClicked = 'Edit';

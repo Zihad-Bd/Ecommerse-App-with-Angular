@@ -23,3 +23,41 @@
     display: unset;
     text-align: center;
 }
+
+.added-to-cart-box {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.added-to-cart-text-and-quantity {
+    border-width: 1px;
+    border-radius: 0.375rem;
+    padding: 9px;
+    color: #fff;
+   /*  background: rgb(13, 110, 253); */
+    background: #0b5ed7;
+    align-items: center;
+    height: 50px;
+    display: flex;
+    white-space: nowrap;
+}
+
+mat-icon:hover {
+/*         cursor: pointer;
+        background: red; */
+    }
+
+ .add-remove-button {
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    background: white;
+    border: .01px solid rgb(41, 209, 235);
+}
+::ng-deep .snackbar {
+    background-color: #31AE53;
+    color: black;
+}

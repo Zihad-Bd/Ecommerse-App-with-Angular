@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <h3>Create Product Form</h3>
-  <form [formGroup]="productForm" (ngSubmit) = "onSubmit()" novalidate>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
     <mat-form-field appearance="outline">
       <mat-label for="productName">Product Name</mat-label>
       <input
@@ -131,7 +131,7 @@
         name="createdDate"
         id="createdDate"
         formControlName="createdDate"
-        max = "{{maxDate}}"
+        max="{{ maxDate }}"
       />
       <mat-error *ngIf="createdDate?.errors?.['required']">
         Creation date is required
